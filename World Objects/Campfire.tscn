@@ -1,0 +1,76 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://World Objects/campfire_16x16.png" type="Texture" id=1]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 1 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 1 )
+region = Rect2( 32, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 1 )
+region = Rect2( 48, 0, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=5]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=6]
+radius = 3.0
+height = 6.0
+
+[sub_resource type="Gradient" id=7]
+offsets = PoolRealArray( 0, 0.585987, 0.77707, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 0.816406, 0.501951, 0.0829163, 1, 0.914063, 0.160675, 0.160675, 1, 0, 0, 0, 0.537255 )
+
+[sub_resource type="GradientTexture" id=8]
+gradient = SubResource( 7 )
+
+[sub_resource type="ParticlesMaterial" id=9]
+lifetime_randomness = 1.0
+emission_shape = 1
+emission_sphere_radius = 5.0
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+spread = 17.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 30.0
+initial_velocity_random = 0.5
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+damping = 2.0
+damping_random = 0.14
+color_ramp = SubResource( 8 )
+
+[node name="Campfire" type="StaticBody2D"]
+modulate = Color( 0.878431, 0.920221, 1, 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -8 )
+frames = SubResource( 5 )
+frame = 1
+speed_scale = 1.2
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( 0, -2 )
+rotation = 1.5708
+shape = SubResource( 6 )
+
+[node name="Particles2D" type="Particles2D" parent="."]
+position = Vector2( 0, -10 )
+amount = 12
+lifetime = 2.0
+process_material = SubResource( 9 )
